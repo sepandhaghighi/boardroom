@@ -42,7 +42,7 @@ class Proposal():
             self.end_time = data["endTimestamp"]
             self.state = data["currentState"]
             self.choices = data["choices"]
-            self.results = data["results"]
+            self.results = results_convert(data["results"])
             self.last_update_data = datetime.datetime.now().timestamp()
 
     def update_votes(self):

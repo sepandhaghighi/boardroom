@@ -110,3 +110,9 @@ def get_stat():
         return None
     except Exception:
         return None
+
+def results_convert(results):
+    result_dict = {}
+    for item in results:
+        result_dict[results["choice"]] = results["total"]
+    return result_dict
