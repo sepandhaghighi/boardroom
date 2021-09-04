@@ -6,6 +6,7 @@ import requests
 def get_protocol(cname="all"):
     """
     Get protocols details.
+
     :param cname: protocol cname
     :type cname: str
     :return: data as dict
@@ -24,11 +25,12 @@ def get_protocol(cname="all"):
 
 
 def get_proposal(cname = None, ref_id = None):
-     """
+    """
     Get proposal details.
+
     :param cname: protocol cname
     :type cname: str
-     :param ref_id: protocol ref_id
+    :param ref_id: protocol ref_id
     :type ref_id: str
     :return: data as dict
     """
@@ -49,21 +51,25 @@ def get_proposal(cname = None, ref_id = None):
         return None
     
 
-def get_vote(address = None, ref_id = None):
+def get_vote(address = None, ref_id = None, limit = None):
     """
     Get vote details.
+
     :param address:  address
     :type address: str
-     :param ref_id:  ref_id
+    :param ref_id:  protocol ref_id
     :type ref_id: str
+    :param limit: pagination limit
+    :type limit: int
     :return: data as dict
     """
     try:
         if address is None and ref_id is not None:
             api = API_BASE + "/proposals/" + ref_id + "/votes"
         if address is not None and ref_id is None:
-            api = API_BASE + "voters/" + address + "/votes"
-            
+            api = API_BASE + "/voters/" + address + "/votes"
+        if limit is not None:
+            api += "?limit={0}".format(limit)
         response = requests.get(api)
         if response.status_code == 200:
             data_json = response.json()
@@ -75,7 +81,8 @@ def get_vote(address = None, ref_id = None):
 def get_voter(cname = None, address = None):
     """
     Get vote details.
-    :param cname:  cname
+
+    :param cname:  protocol cname
     :type cname: str
      :param address:  address
     :type address: str
@@ -100,6 +107,7 @@ def get_voter(cname = None, address = None):
 def get_stat():
     """
     Get global platform stats.
+
     :return: data as dict
     """
     try:
@@ -110,3 +118,16 @@ def get_stat():
         return None
     except Exception:
         return None
+
+def results_convert(results):
+    """
+    Convert result to proper format.
+
+    :param results: results
+    :type results: list
+    :return: converted data as dict
+    """
+    result_dict = {}
+    for item in results:
+        result_dict[item["choice"]] = item["total"]
+    return result_dict
