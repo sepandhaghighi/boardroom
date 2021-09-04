@@ -112,6 +112,13 @@ def get_stat():
         return None
 
 def results_convert(results):
+    """
+    Convert result to proper format.
+
+    :param results: results
+    :type results: list
+    :return: converted data as dict
+    """
     result_dict = {}
     for item in results:
         result_dict[item["choice"]] = item["total"]
