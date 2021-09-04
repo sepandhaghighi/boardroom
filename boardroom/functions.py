@@ -114,5 +114,5 @@ def get_stat():
 def results_convert(results):
     result_dict = {}
     for item in results:
-        result_dict[results["choice"]] = results["total"]
+        result_dict[item["choice"]] = item["total"]
     return result_dict
