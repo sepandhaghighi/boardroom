@@ -7,6 +7,12 @@ from .functions import *
 class Proposal():
 
     def __init__(self,ref_id):
+        """
+        Proposal init method.
+
+        :param ref_id: protocol ref_id
+        :type ref_id: str
+        """
         self.ref_id = ref_id
         self.id = None
         self.title = None
@@ -27,6 +33,11 @@ class Proposal():
         self.votes = {}
 
     def update_data(self):
+        """
+        Update proposal data.
+
+        :return: None
+        """
         data = get_proposal(ref_id=self.ref_id)
         if data is not None:
             self.id = data["id"]
@@ -46,6 +57,11 @@ class Proposal():
             self.last_update_data = datetime.datetime.now().timestamp()
 
     def update_votes(self):
+        """
+        Update proposal votes.
+
+        :return: None
+        """
         data = get_vote(ref_id = self.ref_id)
         if data is not None:
             for vote in data:
@@ -53,6 +69,11 @@ class Proposal():
             self.last_update_votes = datetime.datetime.now().timestamp()
 
     def update_all(self):
+        """
+        Update proposal data and votes.
+
+        :return: None
+        """
         self.update_data()
         self.update_votes()
 
