@@ -24,7 +24,7 @@ class Proposal():
         self.results = None
         self.last_update_data = None
         self.last_update_votes = None
-        self.votes = []
+        self.votes = {}
 
     def update_data(self):
         data = get_proposal(ref_id=self.ref_id)
@@ -49,7 +49,7 @@ class Proposal():
         data = get_vote(ref_id = self.ref_id)
         if data is not None:
             for vote in data:
-                self.votes.append({vote["address"]:{"power":vote["power"],"choice":vote["choice"]}})
+                self.votes[vote["address"]] = {"power":vote["power"],"choice":vote["choice"]}
             self.last_update_votes = datetime.datetime.now().timestamp()
 
     def update_all(self):
