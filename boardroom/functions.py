@@ -51,7 +51,7 @@ def get_proposal(cname = None, ref_id = None):
         return None
     
 
-def get_vote(address = None, ref_id = None):
+def get_vote(address = None, ref_id = None, limit = None):
     """
     Get vote details.
 
@@ -59,14 +59,17 @@ def get_vote(address = None, ref_id = None):
     :type address: str
     :param ref_id:  protocol ref_id
     :type ref_id: str
+    :param limit: pagination limit
+    :type limit: int
     :return: data as dict
     """
     try:
         if address is None and ref_id is not None:
             api = API_BASE + "/proposals/" + ref_id + "/votes"
         if address is not None and ref_id is None:
-            api = API_BASE + "voters/" + address + "/votes"
-            
+            api = API_BASE + "/voters/" + address + "/votes"
+        if limit is not None:
+            api += "?limit={0}".format(limit)
         response = requests.get(api)
         if response.status_code == 200:
             data_json = response.json()

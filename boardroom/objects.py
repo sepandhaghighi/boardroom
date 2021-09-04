@@ -2,6 +2,8 @@
 """Boardroom objects."""
 import datetime
 from .functions import *
+from .errors import UpdateError
+from .params import *
 
 
 class Proposal():
@@ -14,23 +16,8 @@ class Proposal():
         :type ref_id: str
         """
         self.ref_id = ref_id
-        self.id = None
-        self.title = None
-        self.content = None
-        self.protocol = None
-        self.adaptor = None
-        self.proposer = None
-        self.total_votes = None
-        self.block_number = None
-        self.url = None
-        self.start_time = None
-        self.end_time = None
-        self.state = None
-        self.choices = None
-        self.results = None
-        self.last_update_data = None
-        self.last_update_votes = None
         self.votes = {}
+        self.update()
 
     def update_data(self):
         """
@@ -55,20 +42,29 @@ class Proposal():
             self.choices = data["choices"]
             self.results = results_convert(data["results"])
             self.last_update_data = datetime.datetime.now().timestamp()
+        else:
+            raise UpdateError(PROPOSAL_DATA_UPDATE_ERROR)
 
-    def update_votes(self):
+    def update_votes(self, limit=None):
         """
         Update proposal votes.
 
+        :param limit: pagination limit
+        :type limit: int
         :return: None
         """
-        data = get_vote(ref_id = self.ref_id)
+        self.votes = {}
+        if limit is None:
+            limit = self.total_votes
+        data = get_vote(ref_id = self.ref_id,limit=limit)
         if data is not None:
             for vote in data:
                 self.votes[vote["address"]] = {"power":vote["power"],"choice":vote["choice"]}
             self.last_update_votes = datetime.datetime.now().timestamp()
+        else:
+            raise UpdateError(PROPOSAL_VOTES_UPDATE_ERROR)
 
-    def update_all(self):
+    def update(self):
         """
         Update proposal data and votes.
 
