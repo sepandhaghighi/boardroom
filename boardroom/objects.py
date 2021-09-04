@@ -33,7 +33,7 @@ class Proposal():
             self.title = data["title"]
             self.content = data["content"]
             self.protocol = data["protocol"]
-            self.adaptor = data["adaptor"]
+            self.adapter = data["adapter"]
             self.proposer = data["proposer"]
             self.total_votes = data["totalVotes"]
             self.block_number = data["blockNumber"]
