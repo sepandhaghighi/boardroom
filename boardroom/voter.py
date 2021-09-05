@@ -2,22 +2,29 @@
 """Boardroom Voter object."""
 import datetime
 from .functions import *
+from .error import UpdateError
+from .param import *
 
 
 class Voter():
 
     def __init__(self, address):
+		"""
+		Voter inint method.
+		
+		:param address: protocol address
+		:type address: str
+		"""
         self.address = address
-        self.first_vote_cast = None
-        self.last_vote_cast = None
-        self.total_votes_cast = None
-        self.protocols = None
-        self.next_cursor = None
-        self.last_update_data = None
-        self.last_update_votes = None
         self.votes = {}
+		self.update()
 
     def update_data(self):
+		"""
+		Update voter data.
+		
+		:return: None
+		"""
         data = get_voter(address=self.address)
         if data is not None:
             self.address = data["address"]
@@ -27,9 +34,21 @@ class Voter():
             self.protocols = data["protocols"]
             self.next_cursor = data["nextCursor"]
             self.last_update_data = datetime.datetime.now().timestamp()
+		else:
+			raise UpdateError(VOTER_DATA_UPDATE_ERROR)
 
-    def update_votes(self):
-        data = get_vote(address = self.address)
+    def update_votes(self, limit=None):
+		"""
+		Update voter votes.
+		
+		:param limit: pagination limit
+		:type limit: int
+		:return: None
+		"""
+		self.votes = {}
+		if limit is None:
+			limit = self.total_votes_cast
+        data = get_vote(address = self.address, limit=limit)
         if data is not None:
             for vote in data:
                 self.votes[vote["refId"]] = {
@@ -44,9 +63,16 @@ class Voter():
                     "current_state": vote["currentState"]
                 }
             self.last_update_votes = datetime.datetime.now().timestamp()
+		else:
+			raise UpdateError(VOTER_VOTES_UPDATE_ERROR)
 
 
-    def update_all(self):
+    def update(self):
+		"""
+		Update voter data and votes
+		
+		:return: None
+		"""
         self.update_data()
         self.update_votes()
 
