@@ -9,23 +9,23 @@ from .param import *
 class Protocol():
 
     def __init__(self, cname):
-		"""
-		Protocol init method.
+        """
+        Protocol init method.
 
-		"param cname: protocol cname
-		:type cname: str
-		"""
+        :param cname: protocol cname
+        :type cname: str
+        """
         self.cname = cname
         self.proposals = {}
         self.voters = {}
-		self.update()
+        self.update()
 
     def update_data(self):
-		"""
-		Update protocol data.
+        """
+        Update protocol data.
 
-		:return: None
-		"""
+        :return: None
+        """
         data = get_protocol(cname=self.cname)
         if data is not None:
             self.cname = data["cname"]
@@ -36,39 +36,39 @@ class Protocol():
             self.icons = data["icons"]
             self.tokens = data["tokens"]
             self.last_update_data = datetime.datetime.now().timestamp()
-		else:
-			raise UpdateError(PROTOCOL_DATA_UPDATE_ERROR)
+        else:
+            raise UpdateError(PROTOCOL_DATA_UPDATE_ERROR)
 
     def update_proposals(self, limit=None):
-		"""
-		Update protocol proposals.
+        """
+        Update protocol proposals.
 
-		:param limit: pagination limit
-		:type limit: int
-		:return: None
-		"""
-		self.proposals = {}
-		if limit in None:
-			limit = self.total_proposals
+        :param limit: pagination limit
+        :type limit: int
+        :return: None
+        """
+        self.proposals = {}
+        if limit in None:
+            limit = self.total_proposals
         data = get_proposal(cname = self.cname, ref_id = None, limit = limit)
         if data is not None:
             for proposal in data:
                 self.proposals[proposal["title"]] = {"content":proposal["content"],"choices":proposal["choices"]}
             self.last_update_proposals = datetime.datetime.now().timestamp()
-		else:
-			raise UpdateError(PROTOCOL_PROPOSALS_UPDATE_ERROR)
+        else:
+            raise UpdateError(PROTOCOL_PROPOSALS_UPDATE_ERROR)
 
     def update_voters(self, limit = None):
-		"""
-		Update protocol voters.
-		
-		:param limit: pagination limit
-		:type limit: int
-		:return: None
-		"""
-		self.voters = {}
-		if limit is None:
-			limit = self.total_votes
+        """
+        Update protocol voters.
+
+        :param limit: pagination limit
+        :type limit: int
+        :return: None
+        """
+        self.voters = {}
+        if limit is None:
+            limit = self.total_votes
         data = get_voter(cname = self.cname, address = None, limit = limit)
         if data is not None:
             for voter in data:
@@ -79,15 +79,15 @@ class Protocol():
                       "protocols":voter["protocols"]
                 }
             self.last_update_voters = datetime.datetime.now().timestamp()
-		else:
-			raise UpdateError(PROTOCOL_VOTERS_UPDATE_ERROR)
+        else:
+            raise UpdateError(PROTOCOL_VOTERS_UPDATE_ERROR)
 
     def update(self):
-		"""
-		Update protocol data, proposals and voters.
-		
-		:return: None
-		"""
+        """
+        Update protocol data, proposals and voters.
+
+        :return: None
+        """
         self.update_data()
         self.update_proposals()
         self.update_voters()
