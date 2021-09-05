@@ -2,8 +2,8 @@
 """Boardroom Protocol object."""
 import datetime
 from .functions import *
-from .error import UpdateError
-from .param import *
+from .errors import UpdateError
+from .params import *
 
 
 class Protocol():
@@ -48,7 +48,7 @@ class Protocol():
         :return: None
         """
         self.proposals = {}
-        if limit in None:
+        if limit is None:
             limit = self.total_proposals
         data = get_proposal(cname = self.cname, limit = limit)
         if data is not None:

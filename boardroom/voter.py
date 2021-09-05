@@ -2,8 +2,8 @@
 """Boardroom Voter object."""
 import datetime
 from .functions import *
-from .error import UpdateError
-from .param import *
+from .errors import UpdateError
+from .params import *
 
 
 class Voter():
@@ -32,7 +32,6 @@ class Voter():
             self.last_vote_cast = data["lastVoteCast"]
             self.total_votes_cast = data["totalVotesCast"]
             self.protocols = data["protocols"]
-            self.next_cursor = data["nextCursor"]
             self.last_update_data = datetime.datetime.now().timestamp()
         else:
             raise UpdateError(VOTER_DATA_UPDATE_ERROR)
@@ -59,8 +58,7 @@ class Voter():
                     "address": vote["address"],
                     "power": vote["power"],
                     "choice": vote["choice"],
-                    "proposal_info": vote["proposalInfo"],
-                    "current_state": vote["currentState"]
+                    "proposal_info": vote["proposalInfo"]
                 }
             self.last_update_votes = datetime.datetime.now().timestamp()
         else:
