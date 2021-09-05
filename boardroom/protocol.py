@@ -50,7 +50,7 @@ class Protocol():
         self.proposals = {}
         if limit in None:
             limit = self.total_proposals
-        data = get_proposal(cname = self.cname, ref_id = None, limit = limit)
+        data = get_proposal(cname = self.cname, limit = limit)
         if data is not None:
             for proposal in data:
                 self.proposals[proposal["title"]] = {"content":proposal["content"],"choices":proposal["choices"]}
@@ -69,7 +69,7 @@ class Protocol():
         self.voters = {}
         if limit is None:
             limit = self.total_votes
-        data = get_voter(cname = self.cname, address = None, limit = limit)
+        data = get_voter(cname = self.cname, limit = limit)
         if data is not None:
             for voter in data:
                 self.voters[voter["address"]] = {
