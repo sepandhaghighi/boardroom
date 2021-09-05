@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
 """Boardroom modules."""
 
-from .objects import Proposal
+from .proposal import Proposal
+from .protocol import Protocol
+from .voter import Voter
