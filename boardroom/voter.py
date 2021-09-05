@@ -9,22 +9,22 @@ from .param import *
 class Voter():
 
     def __init__(self, address):
-		"""
-		Voter inint method.
-		
-		:param address: protocol address
-		:type address: str
-		"""
+        """
+        Voter init method.
+
+        :param address: protocol address
+        :type address: str
+        """
         self.address = address
         self.votes = {}
-		self.update()
+        self.update()
 
     def update_data(self):
-		"""
-		Update voter data.
-		
-		:return: None
-		"""
+        """
+        Update voter data.
+
+        :return: None
+        """
         data = get_voter(address=self.address)
         if data is not None:
             self.address = data["address"]
@@ -34,20 +34,20 @@ class Voter():
             self.protocols = data["protocols"]
             self.next_cursor = data["nextCursor"]
             self.last_update_data = datetime.datetime.now().timestamp()
-		else:
-			raise UpdateError(VOTER_DATA_UPDATE_ERROR)
+        else:
+            raise UpdateError(VOTER_DATA_UPDATE_ERROR)
 
     def update_votes(self, limit=None):
-		"""
-		Update voter votes.
-		
-		:param limit: pagination limit
-		:type limit: int
-		:return: None
-		"""
-		self.votes = {}
-		if limit is None:
-			limit = self.total_votes_cast
+        """
+        Update voter votes.
+
+        :param limit: pagination limit
+        :type limit: int
+        :return: None
+        """
+        self.votes = {}
+        if limit is None:
+            limit = self.total_votes_cast
         data = get_vote(address = self.address, limit=limit)
         if data is not None:
             for vote in data:
@@ -63,16 +63,16 @@ class Voter():
                     "current_state": vote["currentState"]
                 }
             self.last_update_votes = datetime.datetime.now().timestamp()
-		else:
-			raise UpdateError(VOTER_VOTES_UPDATE_ERROR)
+        else:
+            raise UpdateError(VOTER_VOTES_UPDATE_ERROR)
 
 
     def update(self):
-		"""
-		Update voter data and votes
-		
-		:return: None
-		"""
+        """
+        Update voter data and votes
+
+        :return: None
+        """
         self.update_data()
         self.update_votes()
 
