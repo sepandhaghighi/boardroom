@@ -7,4 +7,14 @@ PROPOSAL_DATA_UPDATE_ERROR = "Something went wrong with proposal data API."
 
 PROPOSAL_VOTES_UPDATE_ERROR = "Something went wrong with proposal votes API."
 
+VOTER_DATA_UPDATE_ERROR = "Something went wrong with voter data API."
+
+VOTER_VOTES_UPDATE_ERROR = "Something went wrong with voter votes API."
+
+PROTOCOL_DATA_UPDATE_ERROR = "Something went wrong with protocol data API."
+
+PROTOCOL_PROPOSALS_UPDATE_ERROR = "Something went wrong with protocol proposals API."
+
+PROTOCOL_VOTERS_UPDATE_ERROR = "Something went wrong with protocol voters API."
+
 

@@ -44,7 +44,7 @@ def get_proposal(cname = None, ref_id = None, limit = None):
         if cname is None and ref_id is not None:
             api = API_BASE + "/proposals/" + ref_id
         if cname is not None and ref_id is None:
-            api = API_BASE + "protocols/" + cname + "/proposals"
+            api = API_BASE + "/protocols/" + cname + "/proposals"
         if limit is not None:
             api += "?limit={0}".format(limit)
         response = requests.get(api)
@@ -97,9 +97,9 @@ def get_voter(cname = None, address = None, limit = None):
         if cname is None and address is  None:
             api = API_BASE + "/voters"
         if cname is not None and address is None:
-            api = API_BASE + "protocols/" + cname + "/voters"
+            api = API_BASE + "/protocols/" + cname + "/voters"
         if cname is None and address is not None:
-            api = API_BASE + "voters/" + address
+            api = API_BASE + "/voters/" + address
         if limit is not None:
             api += "?limit={0}".format(limit)
         response = requests.get(api)
