@@ -53,7 +53,16 @@ class Protocol():
         data = get_proposal(cname = self.cname, limit = limit)
         if data is not None:
             for proposal in data:
-                self.proposals[proposal["title"]] = {"content":proposal["content"],"choices":proposal["choices"]}
+                self.proposals[proposal["refId"]] = {
+                    "title":proposal["title"],
+                    "content":proposal["content"],
+                    "choices":proposal["choices"],
+                    "proposer":proposal["proposer"],
+                    "total_votes":proposal["totalVotes"],
+                    "start_time":proposal["startTimestamp"],
+                    "end_time":proposal["endTimestamp"],
+                    "state":proposal["active"],
+                    "results":results_convert(proposal["results"])}
             self.last_update_proposals = datetime.datetime.now().timestamp()
         else:
             raise UpdateError(PROTOCOL_PROPOSALS_UPDATE_ERROR)
