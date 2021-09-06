@@ -18,7 +18,7 @@ class Protocol():
         self.cname = cname
         self.proposals = {}
         self.voters = {}
-        self.update()
+        self.update_data()
 
     def update_data(self):
         """

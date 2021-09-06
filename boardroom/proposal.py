@@ -17,7 +17,7 @@ class Proposal():
         """
         self.ref_id = ref_id
         self.votes = {}
-        self.update()
+        self.update_data()
 
     def update_data(self):
         """
