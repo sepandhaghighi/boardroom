@@ -101,26 +101,43 @@
 
 #### Update Data + Proposals + Voters
 ```pycon
+>>> protocol_1.update()
 ```
 
 ### Voter
 
 #### Initializing
 ```pycon
+>>> from boardroom import Voter
+>>> voter_1 = Voter(address="0xd409ceA9dD8dB30504168063953cE1Fa20748cab")
+>>> voter_1.last_vote_cast
+1625066741
+>>> voter_1.protocols
+[{'lastCastPower': 147811.42, 'firstVoteCast': 1625066741, 'protocol': 'sushi', 'lastVoteCast': 1625066741, 'totalPowerCast': 147811.42, 'totalVotesCast': 1}]
 ```
 
 #### Update Data
 ```pycon 
+>>> voter_1.update_data()
+>>> voter_1.last_update_data
+1630960776.79719
 ```
 
-#### Update Proposals
+#### Update Votes
 ```pycon
+>>> voter_1.update_votes()
+>>> len(voter_1.votes)
+1
+>>> voter_1.votes
+{'dm90ZTpzdXNoaTpkZWZhdWx0OnFtczdreWM0a3I2ZTFnc3Njc2s1bXBvZWRma3R3OG9ocXJjYWgzams3bXc3NWs6MHhkNDA5Y2VhOWRkOGRiMzA1MDQxNjgwNjM5NTNjZTFmYTIwNzQ4Y2Fi': {'proposal_refId': 'cHJvcG9zYWw6c3VzaGk6ZGVmYXVsdDpxbXM3a3ljNGtyNmUxZ3NzY3NrNW1wb2VkZmt0dzhvaHFyY2FoM2prN213NzVr', 'protocol': 'sushi', 'power': 147811.42, 'choice': 0, 'proposal_info': {'currentState': 'active', 'startTime': {'timestamp': 1623031200}, 'choices': ['YES', 'YES'], 'endTimestamp': 1684980000, 'events': [], 'title': 'Buy MemePad - https://memepad.co/ - LaunchPad for Meme coins', 'endTime': {'timestamp': 1684980000}, 'startTimestamp': 1623031200}, 'proposal_id': 'QmS7kYC4KR6E1gssCsK5MPoeDfktW8oHqRCaH3jK7mW75K', 'adapter': 'default', 'address': '0xd409ceA9dD8dB30504168063953cE1Fa20748cab'}}
+>>> voter_1.last_update_votes
+1630960887.87681
+>>> voter_1.update_votes(limit=5)
+>>> len(voter_1.votes)
+1
 ```
 
-#### Update Voters
+#### Update Data + Votes
 ```pycon
-```
-
-#### Update Data + Proposals + Voters
-```pycon
+>>> voter_1.update()
 ```
