@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Boardroom objects."""
+"""Boardroom Proposal objects."""
 import datetime
 from .functions import *
 from .errors import UpdateError
@@ -17,7 +17,7 @@ class Proposal():
         """
         self.ref_id = ref_id
         self.votes = {}
-        self.update()
+        self.update_data()
 
     def update_data(self):
         """

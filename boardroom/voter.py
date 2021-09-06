@@ -17,7 +17,7 @@ class Voter():
         """
         self.address = address
         self.votes = {}
-        self.update()
+        self.update_data()
 
     def update_data(self):
         """
