@@ -61,7 +61,7 @@ class Protocol():
                     "total_votes":proposal["totalVotes"],
                     "start_time":proposal["startTimestamp"],
                     "end_time":proposal["endTimestamp"],
-                    "state":proposal["active"],
+                    "state":proposal["currentState"],
                     "results":results_convert(proposal["results"])}
             self.last_update_proposals = datetime.datetime.now().timestamp()
         else:
