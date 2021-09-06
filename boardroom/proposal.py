@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Boardroom objects."""
+"""Boardroom Proposal objects."""
 import datetime
 from .functions import *
 from .errors import UpdateError
