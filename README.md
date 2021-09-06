@@ -7,7 +7,7 @@
 		
 ### Proposal
 
-### Initializing
+#### Initializing
 ```pycon
 >>> from boardroom import Proposal
 >>> proposal_1 = Proposal(ref_id = "cHJvcG9zYWw6c3VzaGk6ZGVmYXVsdDpxbXM3a3ljNGtyNmUxZ3NzY3NrNW1wb2VkZmt0dzhvaHFyY2FoM2prN213NzVr")
@@ -44,4 +44,57 @@
 #### Update Data + Votes
 ```pycon
 >>> proposal_1.update() # Update proposal votes + data
+```
+
+### Protocol
+
+#### Initializing
+```pycon
+>>> from boardroom import Protocol
+>>> protocol_1 = Protocol(cname = "aave")
+>>> protocol_1.total_proposals
+31
+>>> protocol_1.unique_voters
+754
+```
+
+#### Update Data
+```pycon 
+>>> protocol_1.update_data()
+>>> protocol_1.last_update_data
+1630958815.165922
+```
+
+#### Update Proposals
+```pycon
+```
+
+#### Update Voters
+```pycon
+```
+
+#### Update Data + Proposals + Voters
+```pycon
+```
+
+### Voter
+
+#### Initializing
+```pycon
+```
+
+#### Update Data
+```pycon 
+```
+
+#### Update Proposals
+```pycon
+```
+
+#### Update Voters
+```pycon
+```
+
+#### Update Data + Proposals + Voters
+```pycon
 ```
