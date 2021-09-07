@@ -9,9 +9,11 @@ PROPOSAL_VOTES_UPDATE_ERROR = "Something went wrong with proposal votes update."
 
 PROPOSAL_UPDATE_WARNING = "Something went wrong with proposal data update."
 
-VOTER_DATA_UPDATE_ERROR = "Something went wrong with voter data API."
+VOTER_DATA_UPDATE_ERROR = "Something went wrong with voter data update."
 
-VOTER_VOTES_UPDATE_ERROR = "Something went wrong with voter votes API."
+VOTER_VOTES_UPDATE_ERROR = "Something went wrong with voter votes update."
+
+VOTER_UPDATE_WARNING = "Something went wrong with voter data update."
 
 PROTOCOL_DATA_UPDATE_ERROR = "Something went wrong with protocol data API."
 
