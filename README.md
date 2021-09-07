@@ -19,14 +19,15 @@
 
 #### Update Data
 ```pycon 
->>> proposal_1.update_data() # Update proposal data
+>>> proposal_1.update_data()
+>>> proposal_1.update_data(retry=5)
 >>> proposal_1.last_update_data # Last data update timestamp
 1630932971.748473
 ```
 
 #### Update Votes
 ```pycon
->>> proposal_1.update_votes() # Update proposal votes
+>>> proposal_1.update_votes()
 >>> len(proposal_1.votes)
 266
 >>> votes_address = list(proposal_1.votes.keys())
@@ -37,13 +38,16 @@
 >>> proposal_1.update_votes(limit=10)
 >>> len(proposal_1.votes)
 10
->>> proposal_1.last_update_votes  # Last votes update timestamp
+>>> proposal_1.update_votes(limit=10,retry=5)
+>>> proposal_1.last_update_votes
 1630933297.228164
 ```
 
 #### Update Data + Votes
 ```pycon
->>> proposal_1.update() # Update proposal votes + data
+>>> proposal_1.update()
+>>> proposal_1.update(limit=3)
+>>> proposal_1.update(limit=3,retry=4)
 ```
 
 ### Protocol
@@ -61,6 +65,7 @@
 #### Update Data
 ```pycon 
 >>> protocol_1.update_data()
+>>> protocol_1.update_data(retry=5)
 >>> protocol_1.last_update_data
 1630958815.165922
 ```
@@ -78,6 +83,7 @@
 >>> protocol_1.update_proposals(limit=5)
 >>> len(protocol_1.proposals)
 5
+>>> protocol_1.update_proposals(limit=5,retry=4)
 >>> protocol_1.last_update_proposals
 1630960429.839166
 ```
@@ -95,6 +101,7 @@
 >>> protocol_1.update_voters(limit=5)
 >>> len(protocol_1.voters)
 5
+>>> protocol_1.update_voters(limit=5,retry=4)
 >>> protocol_1.last_update_voters
 1630960558.200357
 ```
@@ -102,6 +109,8 @@
 #### Update Data + Proposals + Voters
 ```pycon
 >>> protocol_1.update()
+>>> protocol_1.update(limit=3)
+>>> protocol_1.update(limit=3,retry=4)
 ```
 
 ### Voter
@@ -119,6 +128,7 @@
 #### Update Data
 ```pycon 
 >>> voter_1.update_data()
+>>> voter_1.update_data(retry=4)
 >>> voter_1.last_update_data
 1630960776.79719
 ```
@@ -133,6 +143,7 @@
 >>> voter_1.last_update_votes
 1630960887.87681
 >>> voter_1.update_votes(limit=5)
+>>> voter_1.update_votes(limit=5,retry=4)
 >>> len(voter_1.votes)
 1
 ```
@@ -140,4 +151,6 @@
 #### Update Data + Votes
 ```pycon
 >>> voter_1.update()
+>>> voter_1.update(limit=4)
+>>> voter_1.update(limit=4,retry=5)
 ```
