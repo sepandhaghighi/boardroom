@@ -25,70 +25,94 @@ class Voter():
         try:
             self.update_data()
         except UpdateError:
-            warn("Object is created but ...")
+            warn(VOTER_UPDATE_WARNING)
 
 
-    def update_data(self):
+    def update_data(self,retry_number=2):
         """
         Update voter data.
 
+        :param retry_number: retry number
+        :type retry_number: int
         :return: None
         """
-        data = get_voter(address=self.address)
-        if data is not None:
-            self.address = data["address"]
-            self.first_vote_cast = data["firstVoteCast"]
-            self.last_vote_cast = data["lastVoteCast"]
-            self.total_votes_cast = data["totalVotesCast"]
-            self.protocols = data["protocols"]
-            self.last_update_data = datetime.datetime.now().timestamp()
-        else:
+        api_flag = False
+        retry_counter = 0
+        while(retry_counter<retry_number):
+            data = get_voter(address=self.address)
+            if data is not None:
+                self.address = data["address"]
+                self.first_vote_cast = data["firstVoteCast"]
+                self.last_vote_cast = data["lastVoteCast"]
+                self.total_votes_cast = data["totalVotesCast"]
+                self.protocols = data["protocols"]
+                self.last_update_data = datetime.datetime.now().timestamp()
+                api_flag = True
+                break
+            else:
+                retry_counter += 1
+        if api_flag == False:
             raise UpdateError(VOTER_DATA_UPDATE_ERROR)
 
-    def update_votes(self, limit=None):
+    def update_votes(self, limit=None, retry_number=2):
         """
         Update voter votes.
 
         :param limit: pagination limit
         :type limit: int
+        :param retry_number: retry number
+        :type retry_number: int
         :return: None
         """
         self.votes = {}
         if limit is None:
             limit = self.total_votes_cast
-        data = get_vote(address = self.address, limit=limit)
-        if data is not None:
-            for vote in data:
-                self.votes[vote["refId"]] = {
-                    "proposal_refId": vote["proposalRefId"],
-                    "protocol": vote["protocol"],
-                    "adapter": vote["adapter"],
-                    "proposal_id": vote["proposalId"],
-                    "address": vote["address"],
-                    "power": vote["power"],
-                    "choice": vote["choice"],
-                    "proposal_info": vote["proposalInfo"]
-                }
-            self.last_update_votes = datetime.datetime.now().timestamp()
-        else:
+        api_flag = False
+        retry_counter = 0
+        while(retry_counter<retry_number):
+            data = get_vote(address = self.address, limit=limit)
+            if data is not None:
+                for vote in data:
+                    self.votes[vote["refId"]] = {
+                        "proposal_refId": vote["proposalRefId"],
+                        "protocol": vote["protocol"],
+                        "adapter": vote["adapter"],
+                        "proposal_id": vote["proposalId"],
+                        "address": vote["address"],
+                        "power": vote["power"],
+                        "choice": vote["choice"],
+                        "proposal_info": vote["proposalInfo"]
+                    }
+                self.last_update_votes = datetime.datetime.now().timestamp()
+                api_flag = True
+                break
+            else:
+                retry_counter += 1
+        if api_flag == False:
             raise UpdateError(VOTER_VOTES_UPDATE_ERROR)
 
 
-    def update(self):
+    def update(self, limit=None, retry_number=2):
         """
         Update voter data and votes
 
+        :param limit: pagination limit
+        :type limit: int
+        :param retry_number: retry number
+        :type retry_number: int
         :return: None
         """
-        self.update_data()
-        self.update_votes()
+        self.update_data(retry_number = retry_number)
+        self.update_votes(limit = limit, retry_number=retry_number)
 
-    def reputation(self,cname):
+    def reputation(self,cname,retry_number=2):
         """
         Calculate reputation of a voter.
 
         :param cname: protocol cname
         :type cname: str
+        :param retry_number: retry number
+        :type retry_number: int
         :return: reputation score
         """
         vote_list = list(self.votes.keys())
@@ -101,7 +125,7 @@ class Voter():
                     choice = self.votes[ref_id]["choice"]
                     user_reputation += proposal.results[choice] / sum(proposal.results.values())
         protocol = Protocol(cname = cname)
-        protocol.update_proposals()
+        protocol.update_proposals(retry_number = retry_number)
         proposals_list = list(protocol.proposals.keys())
         for ref_id in proposals_list:
             if protocol.proposals[ref_id]["proposer"] == self.address and protocol.proposals[ref_id]["state"] == "executed":
