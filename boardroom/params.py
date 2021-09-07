@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 """Boardroom params."""
 
+VERSION = 0.1
+
 API_BASE = "https://api.boardroom.info/v1"
 
 PROPOSAL_DATA_UPDATE_ERROR = "Something went wrong with proposal data update."
