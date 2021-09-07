@@ -193,3 +193,4 @@ This package will help you to work with Boardroom API in Python.
 >>> voter_3.reputation("aave")
 3.9997581478173947
 ```
+[How is the reputation score calculated?](https://github.com/sepandhaghighi/boardroom/blob/master/REPUTATION.md)
