@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """Boardroom Voter object."""
 import datetime
+from warnings import warn
 from .functions import *
 from .errors import UpdateError
 from .proposal import Proposal
@@ -19,7 +20,13 @@ class Voter():
         """
         self.address = address
         self.votes = {}
-        self.update_data()
+        self.last_update_data = None
+        self.last_update_votes = None
+        try:
+            self.update_data()
+        except UpdateError:
+            warn("Object is created but ...")
+
 
     def update_data(self):
         """
