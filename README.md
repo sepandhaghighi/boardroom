@@ -1,10 +1,34 @@
 # Boardroom
 
+<div align="center">
+<a href="https://www.python.org/"><img src="https://img.shields.io/badge/built%20with-Python3-green.svg" alt="built with Python3" /></a>
+<a href="https://badge.fury.io/py/boardroom"><img src="https://badge.fury.io/py/boardroom.svg" alt="PyPI version" height="18"></a>
+</div>
+
 ----------
 
-## Usage
+## Overview
+This package will help you to work with Boardroom API in Python.
 
-		
+## Installation		
+
+### Source code
+- Download [Version 0.1](https://github.com/sepandhaghighi/boardroom/archive/v0.1.zip) or [Latest Source ](https://github.com/sepandhaghighi/boardroom/archive/dev.zip)
+- Run `pip install -r requirements.txt` or `pip3 install -r requirements.txt` (Need root access)
+- Run `python3 setup.py install` or `python setup.py install` (Need root access)				
+
+### PyPI
+
+
+- Check [Python Packaging User Guide](https://packaging.python.org/installing/)     
+- Run `pip install boardroom==0.1` or `pip3 install boardroom==0.1` (Need root access)
+
+### Easy install
+
+- Run `easy_install --upgrade boardroom` (Need root access)
+
+## Usage
+	
 ### Proposal
 
 #### Initializing
@@ -19,14 +43,15 @@
 
 #### Update Data
 ```pycon 
->>> proposal_1.update_data() # Update proposal data
+>>> proposal_1.update_data()
+>>> proposal_1.update_data(retry=5)
 >>> proposal_1.last_update_data # Last data update timestamp
 1630932971.748473
 ```
 
 #### Update Votes
 ```pycon
->>> proposal_1.update_votes() # Update proposal votes
+>>> proposal_1.update_votes()
 >>> len(proposal_1.votes)
 266
 >>> votes_address = list(proposal_1.votes.keys())
@@ -37,13 +62,16 @@
 >>> proposal_1.update_votes(limit=10)
 >>> len(proposal_1.votes)
 10
->>> proposal_1.last_update_votes  # Last votes update timestamp
+>>> proposal_1.update_votes(limit=10,retry=5)
+>>> proposal_1.last_update_votes
 1630933297.228164
 ```
 
 #### Update Data + Votes
 ```pycon
->>> proposal_1.update() # Update proposal votes + data
+>>> proposal_1.update()
+>>> proposal_1.update(limit=3)
+>>> proposal_1.update(limit=3,retry=4)
 ```
 
 ### Protocol
@@ -61,6 +89,7 @@
 #### Update Data
 ```pycon 
 >>> protocol_1.update_data()
+>>> protocol_1.update_data(retry=5)
 >>> protocol_1.last_update_data
 1630958815.165922
 ```
@@ -78,6 +107,7 @@
 >>> protocol_1.update_proposals(limit=5)
 >>> len(protocol_1.proposals)
 5
+>>> protocol_1.update_proposals(limit=5,retry=4)
 >>> protocol_1.last_update_proposals
 1630960429.839166
 ```
@@ -95,6 +125,7 @@
 >>> protocol_1.update_voters(limit=5)
 >>> len(protocol_1.voters)
 5
+>>> protocol_1.update_voters(limit=5,retry=4)
 >>> protocol_1.last_update_voters
 1630960558.200357
 ```
@@ -102,6 +133,8 @@
 #### Update Data + Proposals + Voters
 ```pycon
 >>> protocol_1.update()
+>>> protocol_1.update(limit=3)
+>>> protocol_1.update(limit=3,retry=4)
 ```
 
 ### Voter
@@ -119,6 +152,7 @@
 #### Update Data
 ```pycon 
 >>> voter_1.update_data()
+>>> voter_1.update_data(retry=4)
 >>> voter_1.last_update_data
 1630960776.79719
 ```
@@ -133,6 +167,7 @@
 >>> voter_1.last_update_votes
 1630960887.87681
 >>> voter_1.update_votes(limit=5)
+>>> voter_1.update_votes(limit=5,retry=4)
 >>> len(voter_1.votes)
 1
 ```
@@ -140,4 +175,21 @@
 #### Update Data + Votes
 ```pycon
 >>> voter_1.update()
+>>> voter_1.update(limit=4)
+>>> voter_1.update(limit=4,retry=5)
+```
+
+#### Reputation
+```pycon
+>>> voter_1.reputation("aave")
+0
+>>> voter_1.reputation("sushi")
+0
+>>> voter_2 = Voter(address="0xb577935e2E630579e926C1d2201E2C6a8603D70b")
+>>> voter_2.reputation("aave")
+1
+>>> voter_3 = Voter(address="0xA7499Aa6464c078EeB940da2fc95C6aCd010c3Cc")
+>>> voter_3.update_votes()
+>>> voter_3.reputation("aave")
+3.9997581478173947
 ```
