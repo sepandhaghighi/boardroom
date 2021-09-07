@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """Boardroom Protocol object."""
 import datetime
+from warnings import warn
 from .functions import *
 from .errors import UpdateError
 from .params import *
@@ -18,7 +19,13 @@ class Protocol():
         self.cname = cname
         self.proposals = {}
         self.voters = {}
-        self.update_data()
+        self.last_update_data = None
+        self.last_update_proposals = None
+        self.last_update_voters = None
+        try:
+            self.update_data()
+        except UpdateError:
+            warn(PROTOCOL_UPDATE_WARNING)
 
     def update_data(self):
         """

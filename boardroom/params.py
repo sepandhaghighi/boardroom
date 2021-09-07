@@ -15,8 +15,10 @@ VOTER_VOTES_UPDATE_ERROR = "Something went wrong with voter votes API."
 
 PROTOCOL_DATA_UPDATE_ERROR = "Something went wrong with protocol data API."
 
-PROTOCOL_PROPOSALS_UPDATE_ERROR = "Something went wrong with protocol proposals API."
+PROTOCOL_PROPOSALS_UPDATE_ERROR = "Something went wrong with protocol proposals update."
 
-PROTOCOL_VOTERS_UPDATE_ERROR = "Something went wrong with protocol voters API."
+PROTOCOL_VOTERS_UPDATE_ERROR = "Something went wrong with protocol voters update."
+
+PROTOCOL_UPDATE_WARNING = "Something went wrong with protocol proposals update."
 
 
