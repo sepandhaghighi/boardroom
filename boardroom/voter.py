@@ -4,6 +4,7 @@ import datetime
 from .functions import *
 from .errors import UpdateError
 from .proposal import Proposal
+from .protocol import Protocol
 from .params import *
 
 
@@ -92,6 +93,12 @@ class Voter():
                 if proposal.state == "executed":
                     choice = self.votes[ref_id]["choice"]
                     user_reputation += proposal.results[choice] / sum(proposal.results.values())
+        protocol = Protocol(cname = cname)
+        protocol.update_proposals()
+        proposals_list = list(protocol.proposals.keys())
+        for ref_id in proposals_list:
+            if protocol.proposals[ref_id]["proposer"] == self.address and protocol.proposals[ref_id]["state"] == "executed":
+                user_reputation += 1
         return user_reputation
 
 
