@@ -3,9 +3,11 @@
 
 API_BASE = "https://api.boardroom.info/v1"
 
-PROPOSAL_DATA_UPDATE_ERROR = "Something went wrong with proposal data API."
+PROPOSAL_DATA_UPDATE_ERROR = "Something went wrong with proposal data update."
 
-PROPOSAL_VOTES_UPDATE_ERROR = "Something went wrong with proposal votes API."
+PROPOSAL_VOTES_UPDATE_ERROR = "Something went wrong with proposal votes update."
+
+PROPOSAL_UPDATE_WARNING = "Something went wrong with proposal data update."
 
 VOTER_DATA_UPDATE_ERROR = "Something went wrong with voter data API."
 

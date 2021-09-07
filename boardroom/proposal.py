@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """Boardroom Proposal objects."""
 import datetime
+from warnings import warn
 from .functions import *
 from .errors import UpdateError
 from .params import *
@@ -19,7 +20,10 @@ class Proposal():
         self.votes = {}
         self.last_update_data = None
         self.last_update_votes = None
-        self.update_data()
+        try:
+            self.update_data()
+        except UpdateError:
+            warn(PROPOSAL_UPDATE_WARNING)
 
     def update_data(self):
         """
