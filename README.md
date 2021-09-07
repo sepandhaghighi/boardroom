@@ -154,3 +154,18 @@
 >>> voter_1.update(limit=4)
 >>> voter_1.update(limit=4,retry=5)
 ```
+
+#### Reputation
+```pycon
+>>> voter_1.reputation("aave")
+0
+>>> voter_1.reputation("sushi")
+0
+>>> voter_2 = Voter(address="0xb577935e2E630579e926C1d2201E2C6a8603D70b")
+>>> voter_2.reputation("aave")
+1
+>>> voter_3 = Voter(address="0xA7499Aa6464c078EeB940da2fc95C6aCd010c3Cc")
+>>> voter_3.update_votes()
+>>> voter_3.reputation("aave")
+3.9997581478173947
+```

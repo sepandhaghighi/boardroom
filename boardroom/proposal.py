@@ -46,7 +46,6 @@ class Proposal():
                 self.proposer = data["proposer"]
                 self.total_votes = data["totalVotes"]
                 self.block_number = data["blockNumber"]
-                self.url = data["externalUrl"]
                 self.start_time = data["startTimestamp"]
                 self.end_time = data["endTimestamp"]
                 self.state = data["currentState"]
