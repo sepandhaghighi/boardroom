@@ -2,9 +2,28 @@
 
 ----------
 
-## Usage
+## Overview
+This package will help you to work with Boardroom API in Python.
 
-		
+## Installation		
+
+### Source code
+- Download [Version 0.1](https://github.com/sepandhaghighi/boardroom/archive/v0.1.zip) or [Latest Source ](https://github.com/sepandhaghighi/boardroom/archive/dev.zip)
+- Run `pip install -r requirements.txt` or `pip3 install -r requirements.txt` (Need root access)
+- Run `python3 setup.py install` or `python setup.py install` (Need root access)				
+
+### PyPI
+
+
+- Check [Python Packaging User Guide](https://packaging.python.org/installing/)     
+- Run `pip install boardroom==0.1` or `pip3 install boardroom==0.1` (Need root access)
+
+### Easy install
+
+- Run `easy_install --upgrade boardroom` (Need root access)
+
+## Usage
+	
 ### Proposal
 
 #### Initializing
