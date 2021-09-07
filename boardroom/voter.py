@@ -76,14 +76,22 @@ class Voter():
         self.update_votes()
 
     def reputation(self,cname):
+        """
+        Calculate reputation of a voter.
+
+        :param cname: protocol cname
+        :type cname: str
+        :return: reputation score
+        """
         vote_list = list(self.votes.keys())
         user_reputation = 0
         for ref_id in vote_list:
             if self.votes[ref_id]["protocol"] == cname:
                 proposal_ref_id = self.votes[ref_id]["proposal_refId"]
                 proposal = Proposal(ref_id = proposal_ref_id)
-                choice = self.votes[ref_id]["choice"]
-                user_reputation += proposal.results[choice] / sum(proposal.results.values())
+                if proposal.state == "executed":
+                    choice = self.votes[ref_id]["choice"]
+                    user_reputation += proposal.results[choice] / sum(proposal.results.values())
         return user_reputation
 
 
