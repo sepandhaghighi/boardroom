@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 """Boardroom Voter object."""
 import datetime
+from warnings import warn
 from .functions import *
 from .errors import UpdateError
+from .proposal import Proposal
+from .protocol import Protocol
 from .params import *
 
 
@@ -17,7 +20,13 @@ class Voter():
         """
         self.address = address
         self.votes = {}
-        self.update_data()
+        self.last_update_data = None
+        self.last_update_votes = None
+        try:
+            self.update_data()
+        except UpdateError:
+            warn("Object is created but ...")
+
 
     def update_data(self):
         """
@@ -73,6 +82,33 @@ class Voter():
         """
         self.update_data()
         self.update_votes()
+
+    def reputation(self,cname):
+        """
+        Calculate reputation of a voter.
+
+        :param cname: protocol cname
+        :type cname: str
+        :return: reputation score
+        """
+        vote_list = list(self.votes.keys())
+        user_reputation = 0
+        for ref_id in vote_list:
+            if self.votes[ref_id]["protocol"] == cname:
+                proposal_ref_id = self.votes[ref_id]["proposal_refId"]
+                proposal = Proposal(ref_id = proposal_ref_id)
+                if proposal.state == "executed":
+                    choice = self.votes[ref_id]["choice"]
+                    user_reputation += proposal.results[choice] / sum(proposal.results.values())
+        protocol = Protocol(cname = cname)
+        protocol.update_proposals()
+        proposals_list = list(protocol.proposals.keys())
+        for ref_id in proposals_list:
+            if protocol.proposals[ref_id]["proposer"] == self.address and protocol.proposals[ref_id]["state"] == "executed":
+                user_reputation += 1
+        return user_reputation
+
+
 
 
 
