@@ -1,4 +1,4 @@
-## Reputation
+# Reputation
 
 Members get reputation by do one of these actions: 
 
@@ -7,14 +7,17 @@ Members get reputation by do one of these actions:
 
 ⚠️ Only executed proposals are counted
 
-### Vote
+## Vote
 ![Reputation_Vote](otherfiles/1.png)
 
 * `P` = Power
 * `n` = Number of votes
 * `m` = Number of choices
 
-### Proposal
+## Proposal
 ![Reputation_Proposal](otherfiles/2.png)
 
 * `k` = Number of proposed items
+
+## Total
+![Reputation_Total](otherfiles/3.png)
